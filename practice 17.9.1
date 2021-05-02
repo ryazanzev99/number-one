@@ -1,0 +1,64 @@
+#  Делаем проверку на то, чтобы пользователь ввёл последовательность
+#  именно чисел и именно с пробелом
+
+# Ввод оследовательности
+while True:
+    try:
+        sequence = input("Введите последовательность чисел (через пробел)\n>>> ")
+        if " " in sequence:
+            sequence = list(map(int, sequence.split()))
+            break
+        else:
+            raise ValueError
+    except ValueError:
+        print("---" * 19)
+        print("Введите именно последовательньсть чисел (ЧЕРЕЗ ПРОБЕЛ)!!!")
+        print("---" * 19)
+    pass
+
+#  Делаем проверку на то, чтобы пользователь ввёл
+#  именно число и оно было одно
+
+# Ввод одиночного числа
+while True:
+    try:
+        any_number = input("Введите рандомное число\n>>> ")
+        if " " not in any_number:
+            any_number = int(any_number)
+            break
+        else:
+            raise ValueError
+    except ValueError:
+        print("---" * 15)
+        print("Введите именно число (ИМЕННО ОДНО)!!!")
+        print("---" * 15)
+    pass
+
+
+# Сортировка элементов по возрастанию
+def qsort(sequence, left, right):
+    middle = (left+right) // 2
+
+    p = sequence[middle]
+    i,j = left, right
+    while i <= j:
+        while sequence[i] < p:
+            i += 1
+        while sequence[j] > p:
+            j -= 1
+        if i <= j:
+            sequence[i], sequence[j] = sequence[j], sequence[i]
+            i += 1
+            j -= 1
+
+    if j > left:
+        qsort(sequence, left, j)
+    if right > i:
+        qsort(sequence, i, right)
+    return sequence
+
+
+sequence = qsort(sequence, 0, len(sequence[:-1]))
+
+
+print(sequence)
